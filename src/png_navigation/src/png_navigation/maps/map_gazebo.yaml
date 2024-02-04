@@ -1,0 +1,18 @@
+image: /home/zhe/map_gazebo.pgm
+resolution: 0.010000
+origin: [-10.000000, -10.000000, 0.000000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+setup: 'world'
+free_range: [-2, -2, 2, 2]
+circle_obstacles: [[1.1, 1.1, 0.15],
+                   [1.1, 0, 0.15],
+                   [1.1, -1.1, 0.15],
+                   [0, 1.1, 0.15],
+                   [0, 0, 0.15],
+                   [0, -1.1, 0.15],
+                   [-1.1, 1.1, 0.15],
+                   [-1.1, 0, 0.15],
+                   [-1.1, -1.1, 0.15]]
+rectangle_obstacles: []

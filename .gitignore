@@ -1,0 +1,10 @@
+build/
+devel/
+.catkin_workspace
+__pycache__/
+*.pyc
+PNG/
+.DS_Store
+*.pth
+*.zip
+src/turtlebot3_simulations

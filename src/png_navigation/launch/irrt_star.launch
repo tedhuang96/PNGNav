@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="map" default="map_gazebo"/>
+    <node pkg="png_navigation" name="irrt_star_node" type="irrt_star_node.py" output="screen" />
+    <node pkg="png_navigation" name="local_planner_clock" type="local_planner_clock.py" output="screen" />
+    <node pkg="png_navigation" name="local_planner_node" type="local_planner_node.py" output="screen" />
+    <node pkg="png_navigation" name="global_planner_node" type="global_planner_node.py" args="--map $(arg map)" output="screen" />
+</launch>
