@@ -6,7 +6,7 @@ This is the ROS implementation of NIRRT*-PNG (Neural Informed RRT* with Point-ba
 
 ##### [Zhe Huang](https://tedhuang96.github.io/), Hongyu Chen, [Katherine Driggs-Campbell](https://krdc.web.illinois.edu/)
 
-[Paper] [[arXiv](https://arxiv.org/abs/2309.14595)] [Project]
+[Paper] [[arXiv](https://arxiv.org/abs/2309.14595)] [[GitHub for train/eval](https://github.com/tedhuang96/nirrt_star)] [[Project](https://sites.google.com/view/nirrt-star)]
 
 All code was developed and tested on Ubuntu 20.04 with CUDA 12.0, ROS Noetic, conda 23.11.0, Python 3.9.0, and PyTorch 2.0.1. This repo provides the ROS package `png_navigation` which offers rospy implmentations on RRT*, Informed RRT*, Neural RRT*, and our NIRRT*-PNG for TurtleBot navigation. We offer instructions on how to use `png_navigation` in Gazebo simulation, and `png_navigation` can be readily applied in real world scenarios.
 
