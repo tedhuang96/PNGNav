@@ -2,9 +2,9 @@
 
 This is the ROS implementation of NIRRT*-PNG (Neural Informed RRT* with Point-based Network Guidance) for TurtleBot navigation, which is the method in our ICRA 2024 paper
 
-### Neural Informed RRT* with Point-based Network Guidance for Optimal Sampling-based Path Planning
+### Neural Informed RRT*: Learning-based Path Planning with Point Cloud State Representations under Admissible Ellipsoidal Constraints
 
-##### [Zhe Huang](https://tedhuang96.github.io/), Hongyu Chen, [Katherine Driggs-Campbell](https://krdc.web.illinois.edu/)
+##### [Zhe Huang](https://tedhuang96.github.io/), [Hongyu Chen](https://www.linkedin.com/in/hongyu-chen-91996b22b), [John Pohovey](https://www.linkedin.com/in/johnp14/), [Katherine Driggs-Campbell](https://krdc.web.illinois.edu/)
 
 [Paper] [[arXiv](https://arxiv.org/abs/2309.14595)] [[GitHub for train/eval](https://github.com/tedhuang96/nirrt_star)] [[Project](https://sites.google.com/view/nirrt-star)]
 
@@ -16,8 +16,8 @@ The training scripts of PointNet++ and PointNet models for PNG (Point-based Netw
 If you find this repo useful, please cite
 ```
 @article{huang2023neural,
-  title={Neural Informed RRT* with Point-based Network Guidance for Optimal Sampling-based Path Planning},
-  author={Huang, Zhe and Chen, Hongyu and Driggs-Campbell, Katherine},
+  title={Neural Informed RRT*: Learning-based Path Planning with Point Cloud State Representations under Admissible Ellipsoidal Constraints},
+  author={Huang, Zhe and Chen, Hongyu and Pohovey, John and Driggs-Campbell, Katherine},
   journal={arXiv preprint arXiv:2309.14595},
   year={2023}
 }

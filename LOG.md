@@ -1,5 +1,8 @@
 # LOG
 
+## 240308
+1. Update ICRA 2024 paper/author information.
+   
 ## 240229
 1. Add links to train/eval GitHub repo and Google project website. 
 
