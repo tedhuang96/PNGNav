@@ -1,5 +1,8 @@
 # LOG
 
+## 240422
+1. Updated links for YouTube. Main GitHub repo is released.
+
 ## 240308
 1. Update ICRA 2024 paper/author information.
    
