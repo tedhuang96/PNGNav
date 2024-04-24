@@ -11,6 +11,7 @@ src/png_navigation/src/png_navigation/datasets/rectangle_point_cloud_2d.py
 src/png_navigation/src/png_navigation/path_planning_classes/nirrt_star_png_c_2d.py
 src/png_navigation/src/png_navigation/path_planning_classes/rrt_env_v1.py
 ```
+2. Updated links for YouTube. Main GitHub repo is released.
 
 ## 240308
 1. Update ICRA 2024 paper/author information.
