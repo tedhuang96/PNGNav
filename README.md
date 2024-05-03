@@ -112,7 +112,7 @@ conda deactivate
 roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 ```
 
-5. Launch the planning algorithm. Start planning on rviz by choosing navigation goal.
+5. Launch the planning algorithm. After you see `Global Planner is initialized.`, you can start planning on rviz by choosing navigation goal.
 ```
 cd ~/PNGNav
 conda deactivate
@@ -202,6 +202,12 @@ Notes:
 - Change moving human speed by changing `vx, vy` in `PNGNav/src/png_navigation/scripts_dynamic_obstacles/moving_humans_with_noisy_measurements.py`.
 - change the human detection radius of robot by changing `human_detection_radius` in `PNGNav/src/png_navigation/scripts_dynamic_obstacles/human_checker_gazebo.py`.
 
+## Real World Deployment on TurtleBot 2i
+We use [CrowdNav_Sim2Real_Turtlebot](https://github.com/Shuijing725/CrowdNav_Sim2Real_Turtlebot) to deploy the planning algorithms in `png_navigation` on a TurtleBot 2i. In addition, remember to comment the line with `# gazebo` and uncomment the line with `# real world` shown below in [local_planner_node.py](src/png_navigation/scripts/local_planner_node.py) and [local_planner_node_check.py](src/png_navigation/scripts_dynamic_obstacles/local_planner_node_check.py) in this repo for real world deployment.
+```
+self.cmd_vel = rospy.Publisher('cmd_vel', Twist, queue_size=5) # gazebo
+# * self.cmd_vel = rospy.Publisher('cmd_vel_mux/input/teleop', Twist, queue_size=5) # real world
+```
 
 ## How to Create Your Own Map Yaml File
 
@@ -244,7 +250,7 @@ rectangle_obstacles: [[xmin_1, ymin_1, xmax_1, ymax_1],
 ```
 roslaunch png_navigation nirrt_star_c.launch map:=abc
 ```
-3. You can keep the other fields the same and leave them there. Here is the reference to what these fields mean. If you are going to transform from pixel map to get the geometric configurations, you need these information, and you need `PNGNav/src/png_navigation/src/png_navigation/maps/map_utils.py`.
+3. You can keep the other fields the same and leave them there. Here is the reference to what these fields mean. We use [ros_map_editor](https://github.com/TheOnceAndFutureSmalltalker/ros_map_editor) to locate the pixels of obstacle keypoints which define the geometry, and then transform from pixel coordinates to world positions. If you are also going to transform from pixel map to get the geometric configurations in the real world, you can use functions `get_transform_pixel_to_world` and `pixel_to_world_coordinates` from `PNGNav/src/png_navigation/src/png_navigation/maps/map_utils.py`.
 ```
 Required fields:
 

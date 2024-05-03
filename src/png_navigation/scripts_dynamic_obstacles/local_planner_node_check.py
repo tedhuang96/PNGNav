@@ -22,15 +22,18 @@ class LocalPlanner:
     def __init__(
         self,
         robot_frame='base_footprint',
-        max_linear_speed=0.2,
-        max_angular_speed=(0.2, 0.4),
+        linear_speed_levels=(0.05, 0.1, 0.2),
+        angular_speed_levels=(0.2, 0.4),
         distance_threshold=(0.05, 0.3),
         angle_threshold=(0.05, 0.1),
+        linear_speed_increment=0.05,
+        angular_speed_increment=0.1,
+        stop_linear_speed_increment=0.1,
+        stop_angular_speed_increment=0.2,
     ):
         rospy.on_shutdown(self.shutdown)
-        self.cmd_vel = rospy.Publisher('cmd_vel', Twist, queue_size=5)
-        # self.cmd_vel = rospy.Publisher('cmd_vel', Twist, queue_size=1)
-        # self.cmd_vel = rospy.Publisher('cmd_vel_mux/input/teleop', Twist, queue_size=5)
+        self.cmd_vel = rospy.Publisher('cmd_vel', Twist, queue_size=5) # gazebo
+        # * self.cmd_vel = rospy.Publisher('cmd_vel_mux/input/teleop', Twist, queue_size=5) # real world
         self.waypoint_reached_pub = rospy.Publisher('/waypoint_reached', Bool, queue_size=1)
 
         self.tf_listener = tf.TransformListener()
@@ -42,21 +45,20 @@ class LocalPlanner:
         self.goal_yaw = 0.0
         self.is_global_goal = False
 
-        self.max_linear_speed = max_linear_speed
-        self.max_angular_speed = max_angular_speed
+        self.linear_speed_levels = linear_speed_levels
+        self.angular_speed_levels = angular_speed_levels
        
-        self.linear_speed_increment = 0.05# 0.005
-        self.angular_speed_increment = 0.1
+        self.linear_speed_increment = linear_speed_increment # 0.05# 0.005
+        self.angular_speed_increment = angular_speed_increment # 0.1
 
-        self.stop_linear_speed_increment = 0.1 # * 0.1 * 2 = 0.2 -> clock time: 2*(1/20)=0.1
-        self.stop_angular_speed_increment = 0.2
+        self.stop_linear_speed_increment = stop_linear_speed_increment # 0.1 # * 0.1 * 2 = 0.2 -> clock time: 2*(1/20)=0.1
+        self.stop_angular_speed_increment = stop_angular_speed_increment # 0.2
 
         self.linear_speed = 0
         self.angular_speed = 0
 
         self.target_linear_speed = 0
         self.target_angular_speed = 0
-
 
         self.distance_threshold = distance_threshold
         self.angle_threshold = angle_threshold
@@ -67,7 +69,6 @@ class LocalPlanner:
         rospy.Service('png_navigation/stop_robot', StopRobot, self.stop_robot)
         rospy.Service('png_navigation/resume_robot', ResumeRobot, self.resume_robot)
         rospy.loginfo("Local Planner is initialized.")
-
 
     def waypoint_callback(self, msg):
         self.goal_x = msg.pose.position.x
@@ -113,16 +114,16 @@ class LocalPlanner:
                 remaining_rotation = normalize_angle(self.goal_yaw - rotation)
                 if abs(remaining_rotation) > self.angle_threshold[1]:
                     if remaining_rotation > 0:
-                        self.target_angular_speed = 0.4
+                        self.target_angular_speed = self.angular_speed_levels[1] # 0.4
                     else:
-                        self.target_angular_speed = -0.4
+                        self.target_angular_speed = -self.angular_speed_levels[1] # -0.4
                     self.send_velocity_command(self.target_linear_speed, self.target_angular_speed)
                     return
                 elif abs(remaining_rotation) > self.angle_threshold[0]:
                     if remaining_rotation > 0:
-                        self.target_angular_speed = 0.2
+                        self.target_angular_speed = self.angular_speed_levels[0] # 0.2
                     else:
-                        self.target_angular_speed = -0.2
+                        self.target_angular_speed = -self.angular_speed_levels[0] # -0.2
                     self.send_velocity_command(self.target_linear_speed, self.target_angular_speed)
                     return
                 else:
@@ -141,29 +142,29 @@ class LocalPlanner:
         if abs(remaining_rotation) > self.angle_threshold[1]:
             self.target_linear_speed = 0.
             if remaining_rotation > 0:
-                self.target_angular_speed = 0.4
+                self.target_angular_speed = self.angular_speed_levels[1] # 0.4
             else:
-                self.target_angular_speed = -0.4
+                self.target_angular_speed = -self.angular_speed_levels[1] # -0.4
             self.send_velocity_command(self.target_linear_speed, self.target_angular_speed)
             return
         elif abs(remaining_rotation) > self.angle_threshold[0]:
             if remaining_rotation > 0:
-                self.target_angular_speed = 0.2
+                self.target_angular_speed = self.angular_speed_levels[0] # 0.2
             else:
-                self.target_angular_speed = -0.2
+                self.target_angular_speed = -self.angular_speed_levels[0] # -0.2
 
             if distance < self.distance_threshold[1] and self.is_global_goal:
-                self.target_linear_speed = 0.05
+                self.target_linear_speed = self.linear_speed_levels[0] # 0.05
             else:
-                self.target_linear_speed = self.max_linear_speed
+                self.target_linear_speed = self.linear_speed_levels[2] # 0.2
             self.send_velocity_command(self.target_linear_speed, self.target_angular_speed)
             return
         else:
             self.target_angular_speed = 0.
             if distance < self.distance_threshold[1] and self.is_global_goal:
-                self.target_linear_speed = 0.1
+                self.target_linear_speed = self.linear_speed_levels[1] # 0.1
             else:
-                self.target_linear_speed = self.max_linear_speed
+                self.target_linear_speed = self.linear_speed_levels[2] # 0.2
             self.send_velocity_command(self.target_linear_speed, self.target_angular_speed)
             return
 
