@@ -8,7 +8,7 @@ src/png_navigation/scripts_dynamic_obstacles/local_planner_node_check.py
 ```
 2. Updated `How to Create Your Own Map Yaml File` in `README.md` by adding the github repo [ros_map_editor](https://github.com/TheOnceAndFutureSmalltalker/ros_map_editor).
 3. Added `Real World Deployment on TurtleBot 2i` in `README.md`. Added the github repo[CrowdNav_Sim2Real_Turtlebot](https://github.com/Shuijing725/CrowdNav_Sim2Real_Turtlebot).
-4. Tested all changes. Release v1.0.2.
+4. Tested all changes. Release v1.0.1.
 
 ## 240422
 1. Removed irrelevant files.
