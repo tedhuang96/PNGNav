@@ -1,5 +1,8 @@
 # LOG
 
+## 240817
+1. Added ICRA paper link and updated citation in `README.md`.
+
 ## 240503
 1. Cleaned `local_planner` files.
 ```
